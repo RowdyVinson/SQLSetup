@@ -1,0 +1,12 @@
+--Use only selected scripts for the issues described.
+
+
+--For when Profiles are set up but not sending mail
+
+EXECUTE msdb.dbo.sysmail_add_principalprofile_sp
+    @principal_name = 'public',
+    @profile_name = 'Alerts',
+    @is_default = '1';
+
+GO
+

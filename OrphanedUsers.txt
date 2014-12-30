@@ -1,0 +1,10 @@
+/* 
+http://msdn.microsoft.com/en-us/library/ms175475.aspx 
+Detects security objects with access to the database, but not to the server.
+Useful when databases have moved between servers.
+*/
+
+USE <database_name>
+GO
+sp_change_users_login @Action='Report'
+GO
