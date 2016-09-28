@@ -1,12 +1,9 @@
 -------------------------------------------------------------
---  Database Mail Simple Configuration Template.
---
---  This template creates a Database Mail profile, an SMTP account and 
---  associates the account to the profile.
---  The template does not grant access to the new profile for
---  any database principals.  Use msdb.dbo.sysmail_add_principalprofile
---  to grant access to the new profile for users who are not
---  members of sysadmin.
+--  Enables Database Mail
+--  Creates Profile "Alerts" with common config
+--  Configured SQL Server Agent for alerting
+
+--  Rowdy Vinson 26Jan15
 -------------------------------------------------------------
 
 sp_configure 'show advanced options', 1;
@@ -20,22 +17,21 @@ GO
 
 
 DECLARE @server_name NVARCHAR (128),
-		@profile_name sysname,
+	@profile_name sysname,
         @account_name sysname,
         @SMTP_servername sysname,
         @email_address NVARCHAR(128),
-	    @display_name NVARCHAR(128);
+	@display_name NVARCHAR(128);
 
 -- Profile name. Replace with the name for your profile
         SET @profile_name = 'Alerts';
 
 -- Account information. Replace with the information for your account.
--- Replace @DOMAINNAME.com and smtp-SERVER.domain.local with your internal email domain and the fqdn of an accessible smtp server respectively.
 
 	SET @account_name = 'Alerts';
-	SET @SMTP_servername = 'smtp-SERVER.domain.local';
-	SET @email_address = @@SERVERNAME + '@DOMAINNAME.com';
-        SET @display_name = @@SERVERNAME + '@DOMAINNAME.com';
+	SET @SMTP_servername = 'smtp-internal.aviation01.local';
+	SET @email_address = @@SERVERNAME + '@atlanticaviation.com';
+        SET @display_name = @@SERVERNAME + '@atlanticaviation.com';
 
 
 -- Verify the specified account and profile do not already exist.
@@ -105,7 +101,6 @@ EXECUTE msdb.dbo.sysmail_add_principalprofile_sp
     @is_default = '1';
 
 GO
-
 
 
 -- Setup SQL Server Agent alerting system

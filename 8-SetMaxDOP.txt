@@ -1,0 +1,4 @@
+EXEC sys.sp_configure N'cost threshold for parallelism', N'50'
+GO
+RECONFIGURE WITH OVERRIDE
+GO
