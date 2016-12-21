@@ -5,6 +5,27 @@
 
 --  Rowdy Vinson 26Jan15
 -------------------------------------------------------------
+DECLARE @server_name NVARCHAR (128),
+		@profile_name sysname,
+        @account_name sysname,
+        @SMTP_servername sysname,
+        @email_address NVARCHAR(128),
+		@display_name NVARCHAR(128),
+		@MailDomain NVARCHAR(128);
+		
+-----------------------CONFIGURATION-------------------------		
+-- Account information. Replace with the information for your account.
+-------------------------------------------------------------
+	SET @SMTP_servername = 'smtp-internal.aviation.local';
+	Set @MailDomain = 'aviation.com'
+
+
+-----------------------CONTENT-------------------------------
+--	Unless you know what you're changing, don't edit below this line
+-------------------------------------------------------------
+	SET @account_name = 'Alerts';
+	SET @email_address = @@SERVERNAME + '@' + @MailDomain;
+    SET @display_name = @@SERVERNAME + '@' + @MailDomain;
 
 sp_configure 'show advanced options', 1;
 GO
@@ -15,23 +36,8 @@ GO
 RECONFIGURE
 GO
 
-
-DECLARE @server_name NVARCHAR (128),
-	@profile_name sysname,
-        @account_name sysname,
-        @SMTP_servername sysname,
-        @email_address NVARCHAR(128),
-	@display_name NVARCHAR(128);
-
 -- Profile name. Replace with the name for your profile
         SET @profile_name = 'Alerts';
-
--- Account information. Replace with the information for your account.
-
-	SET @account_name = 'Alerts';
-	SET @SMTP_servername = 'smtp-internal.aviation01.local';
-	SET @email_address = @@SERVERNAME + '@atlanticaviation.com';
-        SET @display_name = @@SERVERNAME + '@atlanticaviation.com';
 
 
 -- Verify the specified account and profile do not already exist.
